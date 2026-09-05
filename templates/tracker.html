@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+    <link rel="stylesheet" href="{% static 'tracker.css' %}">
+</head>
+<body>
+    <main class="bookings-container">
+        <h1>Track Services</h1>
+
+        {% if bookings %}
+            {% for booking in bookings %}
+                <section class="booking-card">
+                    <div class="booking-header">
+                        <h2>{{ booking.service.name }}</h2>
+                        <span class="status">{{ booking.get_status_display }}</span>
+                    </div>
+
+                    <div class="booking-details">
+                        <p><strong>Date:</strong> {{ booking.date }}</p>
+                        <p><strong>Time:</strong> {{ booking.time }}</p>
+                        <p><strong>Address:</strong> {{ booking.address }}</p>
+                    </div>
+
+                    {% if booking.status == 'Cancelled' %}
+                        <div class="cancelled">This booking was cancelled.</div>
+                    {% else %}
+                        <div class="tracker">
+                            <h3>Service Progress</h3>
+                            <div class="tracker-steps">
+                                <div class="step active">
+                                    <div class="step-circle">1</div>
+                                    <p>Pending</p>
+                                </div>
+                                <div class="step {% if booking.status == 'Confirmed' or booking.status == 'In Progress' or booking.status == 'Completed' %}active{% endif %}">
+                                    <div class="step-circle">2</div>
+                                    <p>Confirmed</p>
+                                </div>
+                                <div class="step {% if booking.status == 'In Progress' or booking.status == 'Completed' %}active{% endif %}">
+                                    <div class="step-circle">3</div>
+                                    <p>In Progress</p>
+                                </div>
+                                <div class="step {% if booking.status == 'Completed' %}active{% endif %}">
+                                    <div class="step-circle">4</div>
+                                    <p>Completed</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </section>
+            {% endfor %}
+        {% else %}
+            <div class="no-bookings">
+                <p>You have no bookings yet.</p>
+            </div>
+        {% endif %}
+
+        <a class="back-home" href="{% url 'home' %}#services">Book More Services</a>
+        <a class="back-home" href="{% url 'home' %}">Back to Home</a>
+    </main>
+</body>
+</html>

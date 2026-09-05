@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Booking Services</title>
+
+    <link rel="stylesheet" href="{% static 'booking.css' %}">
+</head>
+
+<body>
+
+    <div class="booking-container">
+
+        <div class="booking-card">
+
+            <h1>Booking Services</h1>
+
+            <p class="subtitle">
+                Fill in the details to book your service.
+            </p>
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                {% for field in form %}
+
+                    <div class="form-group">
+
+                        {{ field.label_tag }}
+
+                        {{ field }}
+
+                        {% if field.errors %}
+                            <div class="error">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+                <button type="submit" class="book-btn">
+                    Book Service
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

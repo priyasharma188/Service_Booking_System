@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking success</title>
+    <link rel="stylesheet" href="{% static 'booking_success.css' %}?v=2">
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-card">
+            <div class="success-icon">
+                   <span>&#10003;</span>
+            </div>
+
+          <h1>Booking Successful!</h1>
+          <p>Your booking has been confirmed.</p>
+
+          <div class="booking-message">
+            Thank you for choosing our services.
+          </div>
+
+          <div class="success-actions">
+            <a class="success-button secondary-button" href="{% url 'home' %}">Back to Home</a>
+            <a class="success-button" href="{% url 'my_bookings' %}">Track My Booking</a>
+          </div>
+
+        </div>
+    </div>
+</body>
+</html>

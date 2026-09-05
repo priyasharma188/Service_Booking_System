@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Service Booking System</title>
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+</head>
+<body>
+
+    <div class="login-box">
+        <h2>Create Account</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+
+            {% for field in form %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="error">{{ field.errors }}</div>
+                {% endif %}
+            {% endfor %}
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <div class="signup-link">
+            Already have an account?
+            <a href="{% url 'login' %}?next={{ next }}">Login</a>
+        </div>
+    </div>
+
+</body>
+</html>
